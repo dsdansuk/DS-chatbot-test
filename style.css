@@ -1,0 +1,362 @@
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  font-family: Arial, "Noto Sans KR", sans-serif;
+  background: #f4f7fb;
+  color: #111827;
+  overflow: hidden;
+}
+
+.wrap {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f8fafc;
+  border: 1px solid #dbe3ef;
+}
+
+.header {
+  padding: 14px 16px;
+  background: #0b3a75;
+  color: white;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.user-info {
+  font-size: 12px;
+  opacity: 0.85;
+  margin-top: 4px;
+  font-weight: 400;
+}
+
+.mode-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 12px;
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.mode-btn {
+  height: 42px;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  background: #f8fafc;
+  color: #111827;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.mode-btn.active {
+  background: #0b3a75;
+  color: white;
+  border-color: #0b3a75;
+}
+
+.main {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+}
+
+.panel {
+  display: none;
+  height: 100%;
+  min-height: 0;
+  flex-direction: column;
+}
+
+.panel.active {
+  display: flex;
+}
+
+.body {
+  flex: 1;
+  padding: 14px;
+  overflow-y: auto;
+}
+
+.msg {
+  max-width: 88%;
+  padding: 10px 12px;
+  border-radius: 14px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.45;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.bot {
+  background: white;
+  border: 1px solid #e5e7eb;
+  color: #111827;
+}
+
+.user {
+  margin-left: auto;
+  background: #2563eb;
+  color: white;
+}
+
+.debug {
+  max-width: 100%;
+  font-family: Consolas, monospace;
+  font-size: 11px;
+  background: #111827;
+  color: #e5e7eb;
+  overflow-x: auto;
+}
+
+.thinking {
+  width: min(88%, 390px);
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  color: #1f2937;
+  padding: 14px 16px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+
+.thinking-title {
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #111827;
+}
+
+.thinking-list {
+  display: grid;
+  gap: 7px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 13px;
+}
+
+.thinking-list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.55;
+}
+
+.thinking-list li.active,
+.thinking-list li.done {
+  opacity: 1;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: #60a5fa;
+  flex: 0 0 auto;
+}
+
+.thinking-list li.active .dot {
+  width: 12px;
+  height: 12px;
+  border: 2px solid #93c5fd;
+  border-top-color: #2563eb;
+  background: transparent;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.rpa-list {
+  display: grid;
+  gap: 8px;
+  margin: 8px 0 12px;
+}
+
+.rpa-item {
+  text-align: center;
+  padding: 11px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  background: white;
+  cursor: pointer;
+  font-size: 14px;
+  color: #111827;
+}
+
+.rpa-item:hover {
+  border-color: #0b3a75;
+  background: #f1f6ff;
+}
+
+.rpa-name { font-weight: 700; }
+
+.rpa-meta {
+  margin-top: 4px;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.input-area {
+  display: flex;
+  gap: 8px;
+  padding: 12px;
+  background: white;
+  border-top: 1px solid #e5e7eb;
+}
+
+#messageInput {
+  flex: 1;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  padding: 11px 12px;
+  font-size: 14px;
+  outline: none;
+  min-width: 0;
+
+  height: 44px;
+  min-height: 44px;
+  max-height: 120px;
+
+  resize: none;
+  overflow-y: auto;
+
+  line-height: 1.4;
+  font-family: inherit;
+}
+
+.send-btn {
+  border: 0;
+  border-radius: 12px;
+  padding: 0 16px;
+  background: #0b3a75;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.send-btn.wide {
+  width: 100%;
+  height: 42px;
+}
+
+.send-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* RPA 카드 선택 후 바로 아래 실행/취소 영역 */
+.rpa-item.selected {
+  border-color: #2563eb;
+  background: #eef4ff;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.16);
+}
+
+.rpa-inline-action {
+  margin: -2px 0 8px;
+  padding: 12px;
+  border: 1px solid #bfdbfe;
+  border-radius: 14px;
+  background: #f8fbff;
+}
+
+.rpa-inline-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: #111827;
+  margin-bottom: 10px;
+  word-break: break-word;
+}
+
+.rpa-inline-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.rpa-execute-btn,
+.rpa-cancel-btn {
+  height: 40px;
+  border-radius: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.rpa-execute-btn {
+  border: 0;
+  background: #0b3a75;
+  color: #fff;
+}
+
+.rpa-cancel-btn {
+  border: 1px solid #d1d5db;
+  background: #fff;
+  color: #111827;
+}
+
+.rpa-execute-btn:disabled,
+.rpa-cancel-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.rpa-running-box {
+  margin-bottom: 10px;
+  padding: 11px 12px;
+  border: 1px solid #fbbf24;
+  border-radius: 14px;
+  background: #fffbeb;
+  color: #111827;
+}
+
+.rpa-state-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #92400e;
+  margin-bottom: 4px;
+}
+
+.rpa-state-name {
+  font-size: 14px;
+  font-weight: 800;
+  word-break: break-word;
+}
+
+.rpa-running-box {
+  margin-bottom: 16px;
+  padding: 14px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.rpa-state-label {
+  font-size: 12px;
+  font-weight: 700;
+  opacity: 0.7;
+  margin-bottom: 10px;
+}
+
+.rpa-running-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.rpa-running-name {
+  font-weight: 600;
+}
+
+.rpa-running-status {
+  font-size: 13px;
+  opacity: 0.75;
+}

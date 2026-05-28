@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>사내 업무 도우미</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="wrap">
+    <header class="header">
+      <div>
+        <div class="title">사내 업무 도우미</div>
+        <div id="userInfo" class="user-info">인증 확인 중...</div>
+      </div>
+    </header>
+
+    <nav class="mode-buttons" aria-label="업무 도우미 메뉴">
+      <button id="aiBtn" class="mode-btn active" type="button">사내 AI</button>
+      <button id="rpaBtn" class="mode-btn" type="button">RPA 실행</button>
+    </nav>
+
+    <main class="main">
+      <section id="aiPanel" class="panel active" aria-label="사내 AI">
+        <div id="aiBody" class="body">
+          <div class="msg bot">사내 AI 모드입니다. 질문을 입력하세요.</div>
+        </div>
+
+        <form id="chatForm" class="input-area">
+          <textarea
+            id="messageInput"
+            placeholder="질문을 입력하세요"
+            autocomplete="off"
+            rows="1"
+          ></textarea>
+          <button id="sendBtn" class="send-btn" type="submit">전송</button>
+        </form>
+      </section>
+
+      <section id="rpaPanel" class="panel" aria-label="RPA 실행">
+        <div id="rpaBody" class="body">
+          <div class="msg bot">RPA 실행 모드입니다. 실행 가능한 업무 목록을 불러오세요.</div>
+        </div>
+
+        <div class="input-area">
+          <button id="reloadRpaBtn" class="send-btn wide" type="button">RPA 목록 새로고침</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
